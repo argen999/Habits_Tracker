@@ -5,7 +5,7 @@ import com.example.habits_tracker.db.entities.User;
 import com.example.habits_tracker.db.repository.UserRepository;
 import com.example.habits_tracker.db.service.UserService;
 import com.example.habits_tracker.dto.request.AuthRequest;
-import com.example.habits_tracker.dto.request.SingUpRequest;
+import com.example.habits_tracker.dto.request.SignUpRequest;
 import com.example.habits_tracker.dto.response.AuthResponse;
 import com.example.habits_tracker.exceptions.BadCredentialsException;
 import com.example.habits_tracker.exceptions.BadRequestException;
@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService {
     private final BCryptPasswordEncoder passwordEncoder;
 
     @Override
-    public AuthResponse singUp(SingUpRequest singUpRequest) {
+    public AuthResponse singUp(SignUpRequest singUpRequest) {
         if (!userRepository.existsByEmail(singUpRequest.getEmail())) {
             User user = new User();
 

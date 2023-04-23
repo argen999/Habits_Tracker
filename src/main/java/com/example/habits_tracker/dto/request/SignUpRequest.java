@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class SingUpRequest {
+public class SignUpRequest {
 
     @NotNull(message = "Name must not be null!")
     @NotBlank(message = "Name must not be empty!")
