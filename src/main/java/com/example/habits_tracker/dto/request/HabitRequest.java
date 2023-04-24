@@ -11,9 +11,15 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class HabitRequest {
+
     private String name;
+
     private String description;
+
     private Integer goal;
+
     private LocalDate startDate;
+
     private LocalDate endDate;
+
 }

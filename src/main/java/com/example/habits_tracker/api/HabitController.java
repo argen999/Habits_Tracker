@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 public class HabitController {
 
     private final HabitService habitService;
+
     @PostMapping("/save")
     public HabitResponse saveApplication(@RequestBody HabitRequest habitRequest) {
         return habitService.create(habitRequest);
