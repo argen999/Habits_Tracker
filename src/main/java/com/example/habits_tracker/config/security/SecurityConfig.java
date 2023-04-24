@@ -13,34 +13,31 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-//    private final JwtTokenProvider jwtTokenProvider;
-//
-//    private static final String LOGIN_ENDPOINTS = "/api/auth/**";
-//
-//    @Autowired
-//    public SecurityConfig(JwtTokenProvider jwtTokenProvider) {
-//        this.jwtTokenProvider = jwtTokenProvider;
-//    }
-//
-//    @Bean
-//    @Override
-//    public AuthenticationManager authenticationManagerBean() throws Exception {
-//        return super.authenticationManagerBean();
-//    }
-//
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//        http
-//                .httpBasic().disable()
-//                .csrf().disable()
-//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-//                .and()
-//                .authorizeHttpRequests()
-//                .antMatchers(LOGIN_ENDPOINTS).permitAll()
-//                .anyRequest().authenticated()
-//                .and()
-//                .apply(new JwtConfigurer(jwtTokenProvider));
-//    }
+    private static final String LOGIN_ENDPOINTS = "/api/auth/**";
+    private final JwtTokenProvider jwtTokenProvider;
 
+    @Autowired
+    public SecurityConfig(JwtTokenProvider jwtTokenProvider) {
+        this.jwtTokenProvider = jwtTokenProvider;
+    }
 
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+                .httpBasic().disable()
+                .csrf().disable()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .authorizeHttpRequests()
+                .antMatchers(LOGIN_ENDPOINTS).permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .apply(new JwtConfigurer(jwtTokenProvider));
+    }
 }

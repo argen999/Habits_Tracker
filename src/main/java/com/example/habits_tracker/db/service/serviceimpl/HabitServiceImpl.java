@@ -27,7 +27,8 @@ public class HabitServiceImpl implements HabitService {
     public HabitResponse create(HabitRequest habitRequest) {
         Habit habit = habitConverterRequest.addHabit(habitRequest);
         habitRepository.save(habit);
-        return (HabitResponse) habitRepository.getAll();
+        return new HabitResponse(habit.getId(), habit.getName(), habit.getDescription(), habit.getGoal(),
+                habit.getStartDate(), habit.getEndDate());
     }
 
     @Override
