@@ -6,6 +6,8 @@ import com.example.habits_tracker.db.repository.HabitRepository;
 import com.example.habits_tracker.db.service.HabitService;
 import com.example.habits_tracker.dto.request.HabitRequest;
 import com.example.habits_tracker.dto.response.HabitResponse;
+import com.example.habits_tracker.dto.response.SimpleResponse;
+import com.example.habits_tracker.exceptions.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -31,14 +33,13 @@ public class HabitServiceImpl implements HabitService {
                 habit.getStartDate(), habit.getEndDate());
     }
 
-    @Override
-    public HabitResponse update(Long id, HabitRequest habitRequest) {
-        return null;
-    }
+
 
     @Override
-    public HabitResponse delete(Long id) {
-        return null;
+    public SimpleResponse delete(Long id) {
+        Habit habit = habitRepository.findById(id).orElseThrow(()-> new  NotFoundException("Not Found Habit!!!"));
+        habitRepository.delete(habit);
+       return new SimpleResponse("The Habit removed!");
     }
 
 }
