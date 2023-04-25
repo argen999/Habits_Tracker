@@ -13,12 +13,11 @@ import java.time.ZonedDateTime;
 import java.util.Date;
 
 @Component
-@ConfigurationProperties(prefix = "security.jwt")
 @Getter
 @Setter
 public class JwtTokenProvider {
 
-
+    @Value("${jwt.token.issuer}")
     private String issuer;
 
     @Value("${jwt.token.secret}")

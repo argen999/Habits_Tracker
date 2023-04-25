@@ -69,6 +69,8 @@ public class HabitServiceImpl implements HabitService {
             throw new BadRequestException("The start of the date cannot be after the end of the date!");
         }
 
+        habitRepository.save(habit);
+
         return habitRepository.convertForUpdateMethod(id);
     }
 
@@ -78,7 +80,7 @@ public class HabitServiceImpl implements HabitService {
                 () -> new NotFoundException(String.format("Habit with id: %d not found!", id))
         );
         habitRepository.delete(habit);
-        SimpleResponse simpleResponse = new SimpleResponse("Habit with id: %d deleted successfully!");
+        SimpleResponse simpleResponse = new SimpleResponse(String.format("Habit with id: %d deleted successfully!", id));
         return simpleResponse.getMessage();
     }
 
