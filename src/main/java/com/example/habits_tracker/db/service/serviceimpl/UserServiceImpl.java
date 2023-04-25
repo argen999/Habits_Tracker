@@ -12,7 +12,7 @@ import com.example.habits_tracker.exceptions.BadRequestException;
 import com.example.habits_tracker.exceptions.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -24,7 +24,7 @@ public class UserServiceImpl implements UserService {
 
     private final JwtTokenProvider jwtTokenProvider;
 
-    private final BCryptPasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public AuthResponse singUp(SignUpRequest singUpRequest) {
@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
                     user.getFirstname(),
                     user.getLastname(),
                     user.getEmail(),
-                    jwtTokenProvider.createToken(user.getEmail()));
+                    jwtTokenProvider.generateToken(user.getEmail()));
 
         } else {
             throw new BadRequestException(String.format("This %s already exists!", singUpRequest.getEmail()));
@@ -62,7 +62,7 @@ public class UserServiceImpl implements UserService {
                     user.getUsername(),
                     user.getLastname(),
                     user.getEmail(),
-                    jwtTokenProvider.createToken(user.getEmail()));
+                    jwtTokenProvider.generateToken(user.getEmail()));
 
         } else {
             throw new BadCredentialsException("This password already exists!");

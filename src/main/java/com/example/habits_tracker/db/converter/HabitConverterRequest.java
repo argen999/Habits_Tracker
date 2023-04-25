@@ -2,6 +2,7 @@ package com.example.habits_tracker.db.converter;
 
 import com.example.habits_tracker.db.entities.Habit;
 import com.example.habits_tracker.dto.request.HabitRequest;
+import com.example.habits_tracker.exceptions.BadRequestException;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
@@ -17,8 +18,12 @@ public class HabitConverterRequest {
         habit.setName(habitRequest.getName());
         habit.setDescription(habitRequest.getDescription());
         habit.setGoal(habitRequest.getGoal());
-        habit.setStartDate(habitRequest.getStartDate());
-        habit.setEndDate(habitRequest.getEndDate());
+        if (habitRequest.getStartDate().isBefore(habitRequest.getEndDate())) {
+            habit.setStartDate(habitRequest.getStartDate());
+            habit.setEndDate(habitRequest.getEndDate());
+        } else {
+            throw new BadRequestException("The start of the date cannot be after the end of the date!");
+        }
         return habit;
     }
 
@@ -36,11 +41,15 @@ public class HabitConverterRequest {
         if (habitRequest.getGoal() != null) {
             habit.setGoal(habitRequest.getGoal());
         }
-        if (habitRequest.getStartDate() != null) {
-            habit.setStartDate(habitRequest.getStartDate());
-        }
-        if (habitRequest.getEndDate() != null) {
-            habit.setEndDate(habitRequest.getEndDate());
+        if (habitRequest.getStartDate().isBefore(habitRequest.getEndDate())) {
+            if (habitRequest.getStartDate() != null) {
+                habit.setStartDate(habitRequest.getStartDate());
+            }
+            if (habitRequest.getEndDate() != null) {
+                habit.setEndDate(habitRequest.getEndDate());
+            }
+        } else {
+            throw new BadRequestException("The start of the date cannot be after the end of the date!");
         }
         return habit;
     }

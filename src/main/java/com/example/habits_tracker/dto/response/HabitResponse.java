@@ -9,7 +9,6 @@ import java.time.LocalDate;
 
 @Setter
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor
 public class HabitResponse {
 
@@ -24,5 +23,14 @@ public class HabitResponse {
     private LocalDate startDate;
 
     private LocalDate endDate;
+
+    public HabitResponse(Long id, String name, String description, int goal, LocalDate startDate, LocalDate endDate) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.goal = goal;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
 
 }
