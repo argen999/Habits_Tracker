@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/habit")
@@ -15,17 +17,22 @@ public class HabitController {
 
     private final HabitService habitService;
 
-    @PostMapping("/save")
+    @GetMapping("/")
+    public List<HabitResponse> getAll() {
+        return habitService.getAll();
+    }
+
+    @PostMapping("/")
     public HabitResponse save(@RequestBody HabitRequest habitRequest) {
         return habitService.create(habitRequest);
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public HabitResponse update(@PathVariable Long id, @RequestBody HabitRequest habitRequest) {
         return habitService.update(id, habitRequest);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public String delete(@PathVariable Long id) {
         return habitService.delete(id);
     }
