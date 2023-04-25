@@ -77,4 +77,9 @@ public class User implements UserDetails {
         return false;
     }
 
+    public void addHabit(Habit habit) {
+        if (habits == null) habits = new ArrayList<>();
+        else habits.add(habit);
+    }
+
 }

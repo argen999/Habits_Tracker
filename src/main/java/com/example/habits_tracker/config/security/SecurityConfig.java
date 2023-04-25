@@ -13,8 +13,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private static final String LOGIN_ENDPOINTS = "/api/**/**";
-
+    private static final String LOGIN_ENDPOINTS = "/api/auth/**";
     private final JwtTokenProvider jwtTokenProvider;
 
     @Autowired

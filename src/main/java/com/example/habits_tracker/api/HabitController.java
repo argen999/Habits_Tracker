@@ -16,7 +16,18 @@ public class HabitController {
     private final HabitService habitService;
 
     @PostMapping("/save")
-    public HabitResponse saveApplication(@RequestBody HabitRequest habitRequest) {
+    public HabitResponse save(@RequestBody HabitRequest habitRequest) {
         return habitService.create(habitRequest);
     }
+
+    @PutMapping("/update/{id}")
+    public HabitResponse update(@PathVariable Long id, @RequestBody HabitRequest habitRequest) {
+        return habitService.update(id, habitRequest);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public String delete(@PathVariable Long id) {
+        return habitService.delete(id);
+    }
+
 }
