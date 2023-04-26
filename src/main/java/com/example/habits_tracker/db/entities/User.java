@@ -36,6 +36,8 @@ public class User implements UserDetails {
 
     private String link;
 
+    private int code;
+
     @OneToMany(cascade = {DETACH, MERGE, REFRESH, REMOVE}, mappedBy = "user")
     private List<Habit> habits;
 
